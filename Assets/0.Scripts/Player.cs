@@ -35,10 +35,23 @@ public class Player : MonoBehaviour
         {
             isStart = true;
         }
+
+        if(other.GetComponent<Wood>())
+        {
+            other.GetComponent<CapsuleCollider>().isTrigger = false;
+            Vector3 vec = transform.position;
+            vec.x = -1;
+            transform.position = vec;
+            Destroy(other.GetComponent<CapsuleCollider>());
+            other.GetComponent<CapsuleCollider>().isTrigger = true;
+
+        }
+        
     }
 
     public void Dead()
     {
+        GetComponent<SimpleSampleCharacterControl>().m_moveSpeed = 0;
         GetComponent<Animator>().SetTrigger("Wave");
     }
 }
